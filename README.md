@@ -5,10 +5,12 @@ Find tracks for a show on Tunefind and create playlists on Spotify
 
 ## Tunefind API
 NPM Package: https://www.npmjs.com/package/tunefind
+
 API Reference: http://www.tunefind.com/api
 
 ## Spotify API
 NPM Package: https://www.npmjs.com/package/spotify-web-api-node
+
 API Reference: https://developer.spotify.com/web-api/working-with-playlists/
 
 
