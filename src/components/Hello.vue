@@ -26,19 +26,15 @@ import tunefindRepository from '../data/tunefind/TunefindRepository'
 export default {
   name: 'hello',
   data () {
-    tunefindRepository.call('heroes', () => {
-      console.log('show')
+    tunefindRepository.call('heroes', (show) => {
+      console.log(show)
     })
     return {
       msg: 'Welcome to Your Vue.js App'
     }
   },
-  methods: {
-    getShow () {
-      tunefindRepository.call('heroes', (show) => {
-        console.log(show)
-      })
-    }
+  ready () {
+
   }
 }
 </script>
