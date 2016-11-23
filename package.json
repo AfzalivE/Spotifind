@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "got": "^6.6.3",
-    "tunefind": "file:../tunefind",
     "vue": "^2.0.1"
   },
   "devDependencies": {
