@@ -13,8 +13,9 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "got": "^6.6.3",
-    "vue": "^2.0.1"
+    "superagent": "^3.0.0",
+    "vue": "^2.0.1",
+    "vue-resource": "^1.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
