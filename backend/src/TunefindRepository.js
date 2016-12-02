@@ -12,7 +12,7 @@ class TunefindRepository {
     })
   }
 
-  call (showName) {
+  show (showName) {
     return this.tunefind.show(showName)
   }
 }

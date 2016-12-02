@@ -26,7 +26,7 @@ import tunefindRepository from '../data/tunefind/TunefindRepository'
 export default {
   name: 'hello',
   data () {
-    tunefindRepository.call('heroes', (show) => {
+    tunefindRepository.show('heroes', (show) => {
       console.log(show)
     })
     return {

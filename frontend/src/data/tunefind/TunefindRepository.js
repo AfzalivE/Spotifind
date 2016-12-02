@@ -16,12 +16,12 @@ class TunefindRepository extends EventEmitter {
 
   }
 
-  call (showName, onComplete) {
+  show (showName, onComplete) {
     this.request(`/show/${showName}`, onComplete)
   }
 
   request (path, callback) {
-    Vue.http.get(this.baseUrl)
+    Vue.http.get(this.baseUrl + path)
         .then((response) => {
           callback(response.body)
         }, (error) => {
