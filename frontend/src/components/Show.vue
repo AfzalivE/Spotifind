@@ -3,6 +3,11 @@
     <h1>
       {{show.show_name}}
     </h1>
+    <ul>
+      <li v-for="season in show.seasons">
+        Season {{season.number}}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -27,4 +32,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+  li {
+    list-style: none;
+  }
 </style>
