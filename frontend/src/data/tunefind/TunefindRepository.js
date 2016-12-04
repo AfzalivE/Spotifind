@@ -1,27 +1,27 @@
-import EventEmitter from 'events'
 import Vue from 'vue'
 
-class TunefindRepository extends EventEmitter {
+class TunefindRepository extends Vue {
+
   constructor () {
     super()
     this.defaultOptions = {
       json: true
     }
     this.baseUrl = 'http://localhost:1337/api'
-
-    this.attachTunefindListeners()
   }
 
-  attachTunefindListeners () {
-
+  onShowChanged (show) {
+    this.$emit('changed', show)
   }
 
-  show (showName, onComplete) {
-    this.request(`/show/${showName}`, onComplete)
+  show (showName) {
+    this.request(`/show/${showName}`, (show) => {
+      this.onShowChanged(show)
+    })
   }
 
   request (path, callback) {
-    Vue.http.get(this.baseUrl + path)
+    this.$http.get(this.baseUrl + path)
         .then((response) => {
           callback(response.body)
         }, (error) => {
