@@ -1,14 +1,14 @@
 <template>
   <div>
-    <form class="search-box" v-on:submit.prevent="doSearch()" id="search-box">
+    <form class="search-box" v-on:submit.prevent="" id="search-box">
       <input type="text" name="search" v-model="search" placeholder="Search"/>
-      <button type="submit">+</button>
+      <button type="submit" @click="doSearch()">+</button>
     </form>
   </div>
 </template>
 
 <script>
-import Tunefind from '../data/tunefind/TunefindRepository.js'
+// import Tunefind from '../data/tunefind/TunefindRepository.js'
 
 export default {
 
@@ -19,15 +19,17 @@ export default {
   },
   methods: {
     doSearch () {
-      if (this.search.trim()) {
-        Tunefind.show(this.search, (show) => {
-          console.log(show)
-        })
-      }
+      console.log('test')
+      this.$router.push({
+        path: '/show/' + this.search
+      })
     }
   }
 }
 </script>
 
 <style lang="css" scoped>
+a.router-link, a.router-link-active {
+  text-decoration: none;
+}
 </style>

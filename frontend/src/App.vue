@@ -2,18 +2,20 @@
   <div id="app">
     <img src="./assets/logo.png">
     <search></search>
-    <show></show>
+    <div id='container'>
+      <router-view></router-view>
+    </div>
+    <!--
+    <show></show> -->
   </div>
 </template>
 
 <script>
-import Show from './components/Show'
 import Search from './components/Search'
 
 export default {
   name: 'app',
   components: {
-    Show,
     Search
   }
 }

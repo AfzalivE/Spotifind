@@ -20,6 +20,12 @@ class TunefindRepository extends Vue {
     })
   }
 
+  showCallback (showName, callback) {
+    this.request(`/show/${showName}`, (show) => {
+      callback(show)
+    })
+  }
+
   request (path, callback) {
     this.$http.get(this.baseUrl + path)
         .then((response) => {

@@ -5,7 +5,9 @@
     </h1>
     <ul>
       <li v-for="season in show.seasons">
-        Season {{season.number}}
+        <router-link to="/show/season">
+          Season {{season.number}}
+        </router-link>
       </li>
     </ul>
   </div>
@@ -13,20 +15,39 @@
 
 <script>
 import Tunefind from '../data/tunefind/TunefindRepository'
+import Season from '../components/Season'
 
 export default {
   name: 'Show',
-
+  components: {
+    Season
+  },
   data () {
     return {
       show: {}
     }
   },
-  mounted () {
-    Tunefind.$on('changed', (show) => {
-      console.log(show)
-      this.show = show
-    })
+  created () {
+    this.doSearch()
+    // Tunefind.$on('changed', (show) => {
+    //   console.log(show)
+    //   this.show = show
+    // })
+  },
+  watch: {
+    '$route': 'doSearch'
+  },
+  methods: {
+    doSearch () {
+      var showName = this.$route.params.id.trim()
+      console.log(showName)
+      if (showName) {
+        Tunefind.showCallback(showName, (show) => {
+          console.log(show)
+          this.show = show
+        })
+      }
+    }
   }
 }
 </script>
