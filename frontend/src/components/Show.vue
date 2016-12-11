@@ -5,9 +5,9 @@
     </h1>
     <ul>
       <li v-for="season in show.seasons">
-        <router-link to="/show/season">
+        <a class="seasonName" @click="showSeasonData(season)">
           Season {{season.number}}
-        </router-link>
+        </a>
       </li>
     </ul>
   </div>
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     doSearch () {
-      var showName = this.$route.params.id.trim()
+      var showName = this.$route.params.show_id.trim()
       console.log(showName)
       if (showName) {
         Tunefind.showCallback(showName, (show) => {
@@ -47,6 +47,11 @@ export default {
           this.show = show
         })
       }
+    },
+    showSeasonData (season) {
+      this.$router.push({
+        path: '/show/' + this.show.show_name + '/' + 'season' + season.number
+      })
     }
   }
 }
@@ -55,5 +60,12 @@ export default {
 <style lang="css" scoped>
   li {
     list-style: none;
+  }
+  a.seasonName {
+    cursor: pointer;
+    color: blue;
+  }
+  a.seasonName:hover {
+    text-decoration: underline;
   }
 </style>

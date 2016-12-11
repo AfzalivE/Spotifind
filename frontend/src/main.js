@@ -18,10 +18,10 @@ Vue.use(VueRouter)
 const routes = [
   { path: '/' },
   {
-    path: '/show/:id',
+    path: '/show/:show_id',
     component: Show,
     children: [
-      { path: 'season', component: Season }
+      { path: 'season-:season_id', component: Season }
     ]
   },
   { path: '/hello', component: Hello }

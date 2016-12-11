@@ -9,7 +9,7 @@
 </template>
 
 <script>
-// import Tunefind from '../data/tunefind/TunefindRepository'
+import Tunefind from '../data/tunefind/TunefindRepository'
 
 export default {
   name: 'Show',
@@ -17,6 +17,21 @@ export default {
   data () {
     return {
       season: {}
+    }
+  },
+  watch: {
+    '$route': 'getSeasonEpisodes'
+  },
+  methods: {
+    getSeasonEpisodes () {
+      var showName = this.$route.params.show_id.trim()
+      console.log(showName)
+      if (showName) {
+        Tunefind.showCallback(showName, (show) => {
+          console.log(show)
+          this.show = show
+        })
+      }
     }
   },
   mounted () {
