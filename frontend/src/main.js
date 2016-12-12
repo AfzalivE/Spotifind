@@ -19,10 +19,11 @@ const routes = [
   { path: '/' },
   {
     path: '/show/:show_id',
-    component: Show,
-    children: [
-      { path: 'season-:season_id', component: Season }
-    ]
+    component: Show
+  },
+  {
+    path: '/show/:show_id/season/:season_id',
+    component: Season
   },
   { path: '/hello', component: Hello }
   // { path: '*', redirect: '/hello' }

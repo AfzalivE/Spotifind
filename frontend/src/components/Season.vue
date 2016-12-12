@@ -2,7 +2,7 @@
   <div>
     <ul>
       <li v-for="episode in season.episodes">
-        Episode {{episode.number}}
+        <a @click="showEpisodeData(episode)">Episode {{episode.number}}</a>
       </li>
     </ul>
   </div>
@@ -19,19 +19,29 @@ export default {
       season: {}
     }
   },
+  created () {
+    this.getSeasonEpisodes()
+  },
   watch: {
     '$route': 'getSeasonEpisodes'
   },
   methods: {
+    // TODO PASS A CUSTOM SHOW OBJECT CONTAINING INFO FROM PARENTS
     getSeasonEpisodes () {
-      var showName = this.$route.params.show_id.trim()
-      console.log(showName)
-      if (showName) {
-        Tunefind.showCallback(showName, (show) => {
-          console.log(show)
-          this.show = show
+      var showId = this.$route.params.show_id.trim()
+      var seasonId = this.$route.params.season_id.trim()
+      console.log(showId + ' ' + seasonId)
+      if (showId) {
+        Tunefind.seasonCallback(showId, seasonId, (season) => {
+          console.log(season)
+          this.season = season
         })
       }
+    },
+    showEpisodeData (episode) {
+      this.$router.push({
+        path: '/show/' + this.season.show_name + '/' + 'season/' + this.season.number + '/' + episode.id
+      })
     }
   },
   mounted () {
