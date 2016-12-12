@@ -13,16 +13,35 @@ app.use(ExpressSanitizer.middleware())
 app.use(Cors())
 
 var router = Express.Router()
-ExpressSanitizer.sanitizeParams(router, ['name'])
-
+ExpressSanitizer.sanitizeParams(router, ['show_id', 'season_id', 'episode_id'])
 
 const port = process.env.PORT || 1337
-const username = '74d7e40fbd7c452f860ff0cd41633d90'
-const password = '23f359a9fd7dbcdac039fc433f54ad18'
 
-router.get('/show/:name', (req, res) => {
-    console.log("Fetching show " + req.params.name)
-    Tunefind.show(req.params.name)
+router.get('/show/:id', (req, res) => {
+    console.log("Fetching show " + req.params.id)
+    Tunefind.show(req.params.id)
+        .then((show) => {
+            res.json(show)
+        })
+        .catch((error) => {
+            res.json(error)
+        })
+})
+
+router.get('/show/:show_id/season-:season_id', (req, res) => {
+    console.log("Fetching show " + req.params.show_id + " season " + req.params.season_id)
+    Tunefind.season(req.params.show_id, req.params.season_id)
+        .then((show) => {
+            res.json(show)
+        })
+        .catch((error) => {
+            res.json(error)
+        })
+})
+
+router.get('/show/:show_id/season-:season_id/:episode_id', (req, res) => {
+    console.log("Fetching show " + req.params.show_id + " season " + req.params.season_id + " episode " + req.params.episode_id)
+    Tunefind.episode(req.params.show_id, req.params.season_id, req.params.episode_id)
         .then((show) => {
             res.json(show)
         })

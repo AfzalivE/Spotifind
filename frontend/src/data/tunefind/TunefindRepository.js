@@ -10,13 +10,9 @@ class TunefindRepository extends Vue {
     this.baseUrl = 'http://localhost:1337/api'
   }
 
-  onShowChanged (show) {
-    this.$emit('changed', show)
-  }
-
-  show (showName) {
-    this.request(`/show/${showName}`, (show) => {
-      this.onShowChanged(show)
+  seasonCallback (showId, seasonId, callback) {
+    this.request(`/show/${showId}/season-${seasonId}`, (season) => {
+      callback(season)
     })
   }
 

@@ -1,19 +1,17 @@
 import { Client } from 'tunefind'
 
-class TunefindRepository {
+const TUNEFIND_USERNAME = '74d7e40fbd7c452f860ff0cd41633d90'
+const TUNEFIND_PASSWORD = '23f359a9fd7dbcdac039fc433f54ad18'
+
+class TunefindRepository extends Client {
+
   constructor () {
-    this.TUNEFIND_USERNAME = '74d7e40fbd7c452f860ff0cd41633d90'
-    this.TUNEFIND_PASSWORD = '23f359a9fd7dbcdac039fc433f54ad18'
-    this.tunefind = new Client({
+    super({
       credentials: {
-        username: this.TUNEFIND_USERNAME,
-        password: this.TUNEFIND_PASSWORD
+        username: TUNEFIND_USERNAME,
+        password: TUNEFIND_PASSWORD
       }
     })
-  }
-
-  show (showName) {
-    return this.tunefind.show(showName)
   }
 }
 
