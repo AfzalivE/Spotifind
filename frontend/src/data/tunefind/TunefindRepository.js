@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Data from '../Data'
 
 class TunefindRepository extends Vue {
 
@@ -12,18 +13,21 @@ class TunefindRepository extends Vue {
 
   show (showId, callback) {
     this.request(`/show/${showId}`, (show) => {
+      Data.show = show
       callback(show)
     })
   }
 
   season (showId, seasonId, callback) {
     this.request(`/show/${showId}/season-${seasonId}`, (season) => {
+      Data.show.selectedSeasonId = seasonId
+      Data.show.seasons[seasonId].details = season
       callback(season)
     })
   }
 
-  episode (showId, seasonId, episodeId, callback) {
-    this.request(`/show/${showId}/season-${seasonId}/${episodeId}`, (episode) => {
+  episode (showId, seasonId, episodeNum, callback) {
+    this.request(`/show/${showId}/season-${seasonId}/${episodeNum}`, (episode) => {
       callback(episode)
     })
   }

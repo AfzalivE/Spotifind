@@ -27,7 +27,7 @@ const routes = [
         component: Season,
         children: [
           {
-            path: ':episode_id',
+            path: ':episode_num',
             component: Episode
           }
         ]

@@ -31,8 +31,8 @@ router.get('/show/:id', (req, res) => {
 router.get('/show/:show_id/season-:season_id', (req, res) => {
     console.log("Fetching show " + req.params.show_id + " season " + req.params.season_id)
     Tunefind.season(req.params.show_id, req.params.season_id)
-        .then((show) => {
-            res.json(show)
+        .then((season) => {
+            res.json(season)
         })
         .catch((error) => {
             res.json(error)
@@ -41,9 +41,10 @@ router.get('/show/:show_id/season-:season_id', (req, res) => {
 
 router.get('/show/:show_id/season-:season_id/:episode_id', (req, res) => {
     console.log("Fetching show " + req.params.show_id + " season " + req.params.season_id + " episode " + req.params.episode_id)
-    Tunefind.episode(req.params.show_id, req.params.season_id, req.params.episode_id)
-        .then((show) => {
-            res.json(show)
+    // TODO SANITIZE BEFORE PARSEINT() !!!!
+    Tunefind.episode(req.params.show_id, req.params.season_id, parseInt(req.params.episode_id, 10))
+        .then((episode) => {
+            res.json(episode)
         })
         .catch((error) => {
             res.json(error)

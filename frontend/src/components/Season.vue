@@ -11,6 +11,7 @@
 
 <script>
 import Tunefind from '../data/tunefind/TunefindRepository'
+import Data from '../data/Data'
 
 export default {
   name: 'Season',
@@ -31,21 +32,28 @@ export default {
     '$route': 'getSeason'
   },
   methods: {
-    // TODO PASS A CUSTOM SHOW OBJECT CONTAINING INFO FROM PARENTS
     getSeason () {
-      var showId = this.$parent.show.show_name
+      if (Data.show === undefined) {
+        return
+      }
+      var showId = Data.show.show_name
       if (showId === undefined) {
         return
       }
       showId = showId.trim()
-      console.log('parent' + this.$parent.show.show_name)
       var seasonId = this.$route.params.season_id
       if (seasonId === undefined) {
         return
       }
+
       seasonId = seasonId.trim()
       this.seasonId = seasonId
-      console.log(showId + ' ' + seasonId)
+      // console.log(showId + ' ' + seasonId)
+
+      if (Object.keys(this.season).length !== 0 && seasonId === this.seasonId) {
+        console.log('not loading season again')
+        return // don't reload the the same season
+      }
 
       Tunefind.season(showId, seasonId, (season) => {
         console.log(season)
@@ -55,7 +63,7 @@ export default {
     },
     showEpisodes (episode) {
       this.$router.push({
-        path: '/show/' + this.season.show_name + '/' + 'season-' + this.season.number + '/' + episode.id
+        path: '/show/' + this.season.show_name + '/' + 'season-' + this.seasonId + '/' + episode.number
       })
     }
   }

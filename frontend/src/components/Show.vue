@@ -38,8 +38,8 @@ export default {
         return
       }
       showId = showId.trim()
-      console.log(showId)
-      if (showId === this.show.show_name) {
+      // console.log(showId)
+      if (this.show && showId === this.show.show_name) {
         return // don't reload the the same show
       }
       Tunefind.show(showId, (show) => {
@@ -60,12 +60,5 @@ export default {
 <style lang="css" scoped>
   li {
     list-style: none;
-  }
-  a.seasonName {
-    cursor: pointer;
-    color: blue;
-  }
-  a.seasonName:hover {
-    text-decoration: underline;
   }
 </style>

@@ -1,11 +1,8 @@
 <template>
   <div>
-    <h1>
-      {{show.show_name}}
-    </h1>
     <ul>
       <li v-for="song in episode.songs">
-          Song {{song.number}}
+          {{song.name}} by {{song.artist.name}}
       </li>
     </ul>
   </div>
@@ -13,17 +10,19 @@
 
 <script>
 import Tunefind from '../data/tunefind/TunefindRepository'
+import Data from '../data/Data'
 
 export default {
   name: 'Episode',
 
   data () {
     return {
-      episode: {}
+      episode: {},
+      episodeNum: ''
     }
   },
   created () {
-    // this.getEpisode()
+    this.getEpisode()
     Tunefind.$on('loadedSeason', () => {
       this.getEpisode()
     })
@@ -33,13 +32,16 @@ export default {
   },
   methods: {
     getEpisode () {
-      var showId = this.$parent.$parent.show.show_name
+      if (Data.show === undefined) {
+        return
+      }
+      var showId = Data.show.show_name
       if (showId === undefined) {
         console.log('show Id is undefined')
         return
       }
 
-      var seasonId = this.$parent.seasonId
+      var seasonId = Data.show.selectedSeasonId
       if (seasonId === undefined) {
         console.log('season Id is undefined')
         return
@@ -48,15 +50,19 @@ export default {
       showId = showId.trim()
       seasonId = seasonId.trim()
 
-      var episodeId = this.$route.params.episode_id
-      if (episodeId === undefined) {
-        console.log('episode Id is undefined')
+      var episodeNum = this.$route.params.episode_num
+      if (episodeNum === undefined) {
+        console.log('episodeNum is undefined')
         return
       }
-      episodeId = episodeId.trim()
-      console.log(showId + ' ' + seasonId + ' ' + episodeId)
-      Tunefind.episode(showId, seasonId, episodeId, (episode) => {
-        console.log(episodeId)
+      episodeNum = episodeNum.trim()
+      // console.log(showId + ' ' + seasonId + ' ' + episodeNum)
+
+      if (Object.keys(this.episode).length !== 0 && episodeNum === this.episodeNum) {
+        return // don't reload the the same episode
+      }
+      Tunefind.episode(showId, seasonId, episodeNum, (episode) => {
+        console.log(episode)
         this.episode = episode
       })
     }
