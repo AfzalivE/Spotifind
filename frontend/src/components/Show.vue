@@ -5,52 +5,52 @@
     </h1>
     <ul>
       <li v-for="season in show.seasons">
-        <a class="seasonName" @click="showSeasonData(season)">
+        <a class="seasonName" @click="showSeasons(season)">
           Season {{season.number}}
         </a>
       </li>
     </ul>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import Tunefind from '../data/tunefind/TunefindRepository'
-import Season from '../components/Season'
 
 export default {
+
   name: 'Show',
-  components: {
-    Season
-  },
   data () {
     return {
       show: {}
     }
   },
   created () {
-    this.doSearch()
-    // Tunefind.$on('changed', (show) => {
-    //   console.log(show)
-    //   this.show = show
-    // })
+    this.getShow()
   },
   watch: {
-    '$route': 'doSearch'
+    '$route': 'getShow'
   },
   methods: {
-    doSearch () {
-      var showName = this.$route.params.show_id.trim()
-      console.log(showName)
-      if (showName) {
-        Tunefind.showCallback(showName, (show) => {
-          console.log(show)
-          this.show = show
-        })
+    getShow () {
+      var showId = this.$route.params.show_id
+      if (showId === undefined) {
+        return
       }
+      showId = showId.trim()
+      console.log(showId)
+      if (showId === this.show.show_name) {
+        return // don't reload the the same show
+      }
+      Tunefind.show(showId, (show) => {
+        console.log(show)
+        this.show = show
+        Tunefind.$emit('loadedShow')
+      })
     },
-    showSeasonData (season) {
+    showSeasons (season) {
       this.$router.push({
-        path: '/show/' + this.show.show_name + '/' + 'season/' + season.number
+        path: '/show/' + this.show.show_name + '/' + 'season-' + season.number
       })
     }
   }

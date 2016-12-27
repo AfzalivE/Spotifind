@@ -1,9 +1,12 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <search></search>
-    <div id='container'>
-      <router-view></router-view>
+  <div id="app" class="wrapper">
+    <div class="header">
+      <search></search>
+    </div>
+    <div class="main main-raised">
+      <div id="container" class="container">
+        <router-view></router-view>
+      </div>
     </div>
     <!--
     <show></show> -->
@@ -21,9 +24,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="css">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  /* font-family: 'Avenir', Helvetica, Arial, sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

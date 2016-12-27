@@ -2,9 +2,10 @@
   <div>
     <ul>
       <li v-for="episode in season.episodes">
-        <a @click="showEpisodeData(episode)">Episode {{episode.number}}</a>
+        <a @click="showEpisodes(episode)">Episode {{episode.number}}</a>
       </li>
     </ul>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -12,40 +13,51 @@
 import Tunefind from '../data/tunefind/TunefindRepository'
 
 export default {
-  name: 'Show',
+  name: 'Season',
 
   data () {
     return {
-      season: {}
+      season: {},
+      seasonId: ''
     }
   },
   created () {
-    this.getSeasonEpisodes()
+    this.getSeason()
+    Tunefind.$on('loadedShow', () => {
+      this.getSeason()
+    })
   },
   watch: {
-    '$route': 'getSeasonEpisodes'
+    '$route': 'getSeason'
   },
   methods: {
     // TODO PASS A CUSTOM SHOW OBJECT CONTAINING INFO FROM PARENTS
-    getSeasonEpisodes () {
-      var showId = this.$route.params.show_id.trim()
-      var seasonId = this.$route.params.season_id.trim()
-      console.log(showId + ' ' + seasonId)
-      if (showId) {
-        Tunefind.seasonCallback(showId, seasonId, (season) => {
-          console.log(season)
-          this.season = season
-        })
+    getSeason () {
+      var showId = this.$parent.show.show_name
+      if (showId === undefined) {
+        return
       }
+      showId = showId.trim()
+      console.log('parent' + this.$parent.show.show_name)
+      var seasonId = this.$route.params.season_id
+      if (seasonId === undefined) {
+        return
+      }
+      seasonId = seasonId.trim()
+      this.seasonId = seasonId
+      console.log(showId + ' ' + seasonId)
+
+      Tunefind.season(showId, seasonId, (season) => {
+        console.log(season)
+        this.season = season
+        Tunefind.$emit('loadedSeason')
+      })
     },
-    showEpisodeData (episode) {
+    showEpisodes (episode) {
       this.$router.push({
-        path: '/show/' + this.season.show_name + '/' + 'season/' + this.season.number + '/' + episode.id
+        path: '/show/' + this.season.show_name + '/' + 'season-' + this.season.number + '/' + episode.id
       })
     }
-  },
-  mounted () {
-
   }
 }
 </script>

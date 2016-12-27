@@ -3,6 +3,7 @@ import App from './App'
 import Hello from './components/Hello.vue'
 import Show from './components/Show.vue'
 import Season from './components/Season.vue'
+import Episode from './components/Episode.vue'
 
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
@@ -19,11 +20,19 @@ const routes = [
   { path: '/' },
   {
     path: '/show/:show_id',
-    component: Show
-  },
-  {
-    path: '/show/:show_id/season/:season_id',
-    component: Season
+    component: Show,
+    children: [
+      {
+        path: 'season-:season_id',
+        component: Season,
+        children: [
+          {
+            path: ':episode_id',
+            component: Episode
+          }
+        ]
+      }
+    ]
   },
   { path: '/hello', component: Hello }
   // { path: '*', redirect: '/hello' }
