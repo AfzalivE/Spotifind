@@ -1,5 +1,5 @@
 import Express from 'express'
-import Tunefind from './Tunefind'
+import Tunefind from './TunefindMock'
 import Helmet from 'helmet'
 import ExpressSanitizer from 'express-sanitize-escape'
 import Cors from 'cors'
