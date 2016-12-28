@@ -1,7 +1,10 @@
 <template>
   <div id="app" class="wrapper">
-    <div class="header">
-      <search></search>
+    <div class="navbar navbar-fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">SpotiFind</a>
+        <search></search>
+      </div>
     </div>
     <div class="main main-raised">
       <div id="container" class="container">

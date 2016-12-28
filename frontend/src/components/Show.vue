@@ -50,7 +50,7 @@ export default {
     },
     showSeasons (season) {
       this.$router.push({
-        path: '/show/' + this.show.show_name + '/' + 'season-' + season.number
+        path: '/show/' + this.show.show_name.toLowerCase() + '/' + 'season-' + season.number
       })
     }
   }

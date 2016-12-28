@@ -63,7 +63,7 @@ export default {
     },
     showEpisodes (episode) {
       this.$router.push({
-        path: '/show/' + this.season.show_name + '/' + 'season-' + this.seasonId + '/' + episode.number
+        path: '/show/' + this.season.show_name.toLowerCase() + '/' + 'season-' + this.seasonId + '/' + episode.number
       })
     }
   }
