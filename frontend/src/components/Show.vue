@@ -14,6 +14,9 @@
             <div>
               Season {{season.number}}
             </div>
+            <div>
+              {{season.song_count}} songs in {{season.episode_count}} episodes
+            </div>
           </li>
         </ul>
       </div>

@@ -3,6 +3,9 @@
     <ul class="list-group">
       <li v-for="episode in season.episodes" class="list-group-item click" @click="showEpisodes(episode)">
         <div>Episode {{episode.number}}</div>
+        <div>
+          {{episode.song_count}} songs
+        </div>
       </li>
     </ul>
     <router-view></router-view>
