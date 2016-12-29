@@ -29,7 +29,7 @@ export default {
     doSearch () {
       console.log('Searching...')
       this.$router.push({
-        path: '/show/' + this.search
+        path: '/show/' + this.search.toLowerCase()
       })
     }
   }

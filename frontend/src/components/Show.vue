@@ -1,8 +1,12 @@
 <template>
   <div>
-    <h1>
-      {{show.show_name}}
-    </h1>
+    <div class="header header-filter" style='background-image: url("http://localhost:8080/static/img/arrow.jpg")'>
+      <div class="container">
+        <h1>
+          {{show.show_name}}
+        </h1>
+      </div>
+    </div>
     <ul>
       <li v-for="season in show.seasons">
         <a class="seasonName" @click="showSeasons(season)">
@@ -58,7 +62,17 @@ export default {
 </script>
 
 <style lang="css" scoped>
-  li {
-    list-style: none;
-  }
+li {
+  list-style: none;
+}
+.header {
+  background-size: cover;
+  min-height: 300px;
+  background-position: top center;
+}
+h1 {
+  padding-top: 60px;
+  color: #fff;
+  text-align: left;
+}
 </style>

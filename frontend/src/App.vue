@@ -1,16 +1,12 @@
 <template>
-  <div id="app" class="wrapper">
-    <div class="navbar navbar-fixed-top">
+  <div id="app">
+    <div class="navbar navbar-fixed-top navbar-transparent">
       <div class="container">
         <a class="navbar-brand" href="#">SpotiFind</a>
         <search></search>
       </div>
     </div>
-    <div class="main main-raised">
-      <div id="container" class="container">
-        <router-view></router-view>
-      </div>
-    </div>
+    <router-view></router-view>
     <!--
     <show></show> -->
   </div>
@@ -34,9 +30,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 a {
     cursor: pointer;
+}
+
+.navbar {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 </style>
