@@ -1,11 +1,6 @@
 <template>
   <div id="app">
-    <div class="navbar navbar-fixed-top navbar-color-on-scroll navbar-transparent">
-      <div class="container">
-        <a class="navbar-brand" href="#">SpotiFind</a>
-        <search></search>
-      </div>
-    </div>
+    <navbar></navbar>
     <router-view></router-view>
     <!--
     <show></show> -->
@@ -13,12 +8,12 @@
 </template>
 
 <script>
-import Search from './components/Search'
+import Navbar from './components/Navbar'
 
 export default {
   name: 'app',
   components: {
-    Search
+    Navbar
   }
 }
 </script>
