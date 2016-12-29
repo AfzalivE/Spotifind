@@ -31,8 +31,12 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-a {
+a, .click {
     cursor: pointer;
+    color: #9c27b0;
+}
+.click:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .navbar {
   background-color: rgba(0, 0, 0, 0.5);

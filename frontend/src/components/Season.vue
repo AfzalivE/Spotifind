@@ -1,8 +1,8 @@
 <template>
   <div class="episode-list">
     <ul class="list-group">
-      <li v-for="episode in season.episodes" class="list-group-item">
-        <a @click="showEpisodes(episode)">Episode {{episode.number}}</a>
+      <li v-for="episode in season.episodes" class="list-group-item click" @click="showEpisodes(episode)">
+        <div>Episode {{episode.number}}</div>
       </li>
     </ul>
     <router-view></router-view>

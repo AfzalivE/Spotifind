@@ -10,10 +10,10 @@
     <div class="main">
       <div class="season-list">
         <ul class="list-group">
-          <li v-for="season in show.seasons" class="list-group-item">
-            <a class="seasonName" @click="showSeasons(season)">
+          <li v-for="season in show.seasons" class="list-group-item click" @click="showSeasons(season)">
+            <div>
               Season {{season.number}}
-            </a>
+            </div>
           </li>
         </ul>
       </div>
