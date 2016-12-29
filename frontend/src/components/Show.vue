@@ -7,14 +7,18 @@
         </h1>
       </div>
     </div>
-    <ul>
-      <li v-for="season in show.seasons">
-        <a class="seasonName" @click="showSeasons(season)">
-          Season {{season.number}}
-        </a>
-      </li>
-    </ul>
-    <router-view></router-view>
+    <div class="main">
+      <div class="season-list">
+        <ul class="list-group">
+          <li v-for="season in show.seasons" class="list-group-item">
+            <a class="seasonName" @click="showSeasons(season)">
+              Season {{season.number}}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -74,5 +78,8 @@ h1 {
   padding-top: 60px;
   color: #fff;
   text-align: left;
+}
+.main {
+  display: flex;
 }
 </style>

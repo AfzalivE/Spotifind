@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="navbar navbar-fixed-top navbar-transparent">
+    <div class="navbar navbar-fixed-top navbar-color-on-scroll navbar-transparent">
       <div class="container">
         <a class="navbar-brand" href="#">SpotiFind</a>
         <search></search>
@@ -34,8 +34,13 @@ export default {
 a {
     cursor: pointer;
 }
-
 .navbar {
   background-color: rgba(0, 0, 0, 0.5);
+  /* background-size: cover; */
+  /* background-position: center center; */
+  /* background-image: url("http://localhost:8080/static/img/arrow.jpg"); */
+}
+.navbar-transparent {
+  /* background-image: none; */
 }
 </style>
