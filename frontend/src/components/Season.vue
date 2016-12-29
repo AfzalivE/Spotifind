@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <ul>
-      <li v-for="episode in season.episodes">
+  <div class="episode-list">
+    <ul class="list-group">
+      <li v-for="episode in season.episodes" class="list-group-item">
         <a @click="showEpisodes(episode)">Episode {{episode.number}}</a>
       </li>
     </ul>
@@ -71,7 +71,10 @@ export default {
 </script>
 
 <style lang="css" scoped>
-  li {
-    list-style: none;
-  }
+li {
+  list-style: none;
+}
+.episode-list {
+  display: flex;
+}
 </style>

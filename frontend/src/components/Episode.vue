@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ul>
-      <li v-for="song in episode.songs">
+    <ul class="list-group">
+      <li v-for="song in episode.songs" class="list-group-item">
           {{song.name}} by {{song.artist.name}}
       </li>
     </ul>
