@@ -4,6 +4,7 @@ import Hello from './components/Hello.vue'
 import Show from './components/Show.vue'
 import Season from './components/Season.vue'
 import Episode from './components/Episode.vue'
+import Search from './components/Search.vue'
 
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
@@ -17,7 +18,8 @@ Vue.use(VueRouter)
 // Vue.extend(), or just a component options object.
 // We'll talk about nested routes later.
 const routes = [
-  { path: '/' },
+  { path: '/',
+    component: Search },
   {
     path: '/show/:show_id',
     component: Show,
