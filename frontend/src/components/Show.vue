@@ -32,6 +32,7 @@
         <transition name="slide-fade">
           <router-view></router-view>
         </transition>
+        <vue-progress-bar></vue-progress-bar>
       </div>
     </div>
   </div>
@@ -70,6 +71,7 @@ export default {
       }
 
       this.loading = true
+      this.error = false
       this.show = null
       Tunefind.show(showId, (show) => {
         console.log(show)

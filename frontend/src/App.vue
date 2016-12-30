@@ -4,6 +4,7 @@
     <transition name="slide-fade">
       <router-view></router-view>
     </transition>
+    <vue-progress-bar></vue-progress-bar>
     <!--
     <show></show> -->
   </div>
@@ -55,5 +56,8 @@ a, .click {
 .slide-fade-enter, .slide-fade-leave-active {
   transform: translateX(10px);
   opacity: 0;
+}
+.__cov-progress {
+  z-index: 10;
 }
 </style>

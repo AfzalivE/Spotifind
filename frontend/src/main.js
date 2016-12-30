@@ -8,9 +8,26 @@ import Search from './components/Search.vue'
 
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
+import VueProgressBar from 'vue-progressbar'
+import VueResourceProgressBarInterceptor from 'vue-resource-progressbar-interceptor'
+
+const progressBarOptions = {
+  color: 'rgb(0, 223, 155)',
+  failedColor: 'rgb(226, 0, 0)',
+  thickness: '2px',
+  transition: {
+    speed: '0.2s',
+    opacity: '0.6s'
+  },
+  autoRevert: true,
+  location: 'top',
+  inverse: false
+}
 
 Vue.use(VueResource)
 Vue.use(VueRouter)
+Vue.use(VueProgressBar, progressBarOptions)
+Vue.use(VueResourceProgressBarInterceptor)
 
 // 2. Define some routes
 // Each route should map to a component. The "component" can

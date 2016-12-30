@@ -15,6 +15,7 @@
         </li>
       </ul>
     </div>
+    <vue-progress-bar></vue-progress-bar>
   </div>
 </template>
 
@@ -76,6 +77,7 @@ export default {
       }
 
       this.loading = true
+      this.error = false
       this.show = null
       Tunefind.episode(showId, seasonId, episodeNum, (episode) => {
         console.log(episode)
