@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="header header-filter" style='background-image: url("http://localhost:8080/static/img/arrow.jpg")'>
+    <div class="header header-filter" :style="{'background-image': 'url('+ show.show_image + ')' }">
       <div class="container">
         <h1>
           {{show.show_name}}
@@ -56,6 +56,7 @@ export default {
       Tunefind.show(showId, (show) => {
         console.log(show)
         this.show = show
+        this.show.show_image = this.show.show_image.split('&w')[0] + '&w=1980&h=300'
         Tunefind.$emit('loadedShow')
       })
     },
