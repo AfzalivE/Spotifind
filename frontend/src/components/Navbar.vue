@@ -33,6 +33,10 @@ export default {
   methods: {
     doSearch () {
       console.log('Searching...')
+      if (this.search === undefined) {
+        console.log('show error for empty search')
+        return
+      }
       this.$router.push({
         path: '/show/' + this.search.toLowerCase()
       })

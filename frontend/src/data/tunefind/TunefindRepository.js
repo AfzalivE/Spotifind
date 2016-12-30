@@ -21,7 +21,7 @@ class TunefindRepository extends Vue {
   season (showId, seasonId, callback) {
     this.request(`/show/${showId}/season-${seasonId}`, (season) => {
       Data.show.selectedSeasonId = seasonId
-      Data.show.seasons[seasonId].details = season
+      Data.show.seasons[seasonId - 1].details = season
       callback(season)
     })
   }

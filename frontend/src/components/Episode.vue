@@ -1,10 +1,20 @@
 <template>
   <div>
-    <ul class="list-group">
-      <li v-for="song in episode.songs" class="list-group-item">
-          {{song.name}} by {{song.artist.name}}
-      </li>
-    </ul>
+    <div v-if="loading">
+      Loading...
+    </div>
+
+    <div v-if="error">
+      Error loading season
+    </div>
+
+    <div v-if="episode">
+      <ul class="list-group">
+        <li v-for="song in episode.songs" class="list-group-item">
+            {{song.name}} by {{song.artist.name}}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -17,6 +27,8 @@ export default {
 
   data () {
     return {
+      error: false,
+      loading: false,
       episode: {},
       episodeNum: ''
     }
@@ -32,6 +44,13 @@ export default {
   },
   methods: {
     getEpisode () {
+      var episodeNum = this.$route.params.episode_num
+      if (episodeNum === undefined) {
+        return
+      }
+
+      episodeNum = episodeNum.trim()
+
       if (Data.show === undefined) {
         return
       }
@@ -50,19 +69,22 @@ export default {
       showId = showId.trim()
       seasonId = seasonId.trim()
 
-      var episodeNum = this.$route.params.episode_num
-      if (episodeNum === undefined) {
-        console.log('episodeNum is undefined')
-        return
-      }
-      episodeNum = episodeNum.trim()
       // console.log(showId + ' ' + seasonId + ' ' + episodeNum)
 
       if (Object.keys(this.episode).length !== 0 && episodeNum === this.episodeNum) {
         return // don't reload the the same episode
       }
+
+      this.loading = true
+      this.show = null
       Tunefind.episode(showId, seasonId, episodeNum, (episode) => {
         console.log(episode)
+        this.loading = false
+        this.error = false
+        if (episode.episode_name === undefined) {
+          this.error = true
+          return
+        }
         this.episode = episode
       })
     }

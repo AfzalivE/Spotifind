@@ -1,26 +1,38 @@
 <template>
   <div>
-    <div class="header header-filter" :style="{'background-image': 'url('+ show.show_image + ')' }">
-      <div class="container">
-        <h1>
-          {{show.show_name}}
-        </h1>
-      </div>
+    <div v-if="loading">
+      Loading...
     </div>
-    <div class="main">
-      <div class="season-list">
-        <ul class="list-group">
-          <li v-for="season in show.seasons" class="list-group-item click" @click="showSeasons(season)">
-            <div>
-              Season {{season.number}}
-            </div>
-            <div>
-              {{season.song_count}} songs in {{season.episode_count}} episodes
-            </div>
-          </li>
-        </ul>
+
+    <div v-if="error">
+      Error loading show
+    </div>
+
+    <div v-if="show">
+      <div class="header header-filter" :style="{'background-image': 'url('+ show.show_image + ')' }">
+        <div class="container">
+          <h1>
+            {{show.show_name}}
+          </h1>
+        </div>
       </div>
-      <router-view></router-view>
+      <div class="main">
+        <div class="season-list">
+          <ul class="list-group">
+            <li v-for="season in show.seasons" class="list-group-item click" @click="showSeasons(season)">
+              <div>
+                Season {{season.number}}
+              </div>
+              <div>
+                {{season.song_count}} songs in {{season.episode_count}} episodes
+              </div>
+            </li>
+          </ul>
+        </div>
+        <transition name="slide-fade">
+          <router-view></router-view>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
@@ -33,7 +45,9 @@ export default {
   name: 'Show',
   data () {
     return {
-      show: {}
+      error: false,
+      loading: false,
+      show: null
     }
   },
   created () {
@@ -46,17 +60,28 @@ export default {
     getShow () {
       var showId = this.$route.params.show_id
       if (showId === undefined) {
+        console.log('undefined showId')
         return
       }
-      showId = showId.trim()
-      // console.log(showId)
-      if (this.show && showId === this.show.show_name) {
+      showId = showId.trim().toLowerCase()
+      if (this.show !== null && showId === this.show.show_name.toLowerCase()) {
+        // console.log('not requesting the same show again')
         return // don't reload the the same show
       }
+
+      this.loading = true
+      this.show = null
       Tunefind.show(showId, (show) => {
         console.log(show)
+        this.loading = false
+        this.error = false
+        if (show.show_name === undefined) {
+          this.error = true
+          return
+        }
         this.show = show
-        this.show.show_image = this.show.show_image.split('&w')[0] + '&w=1980&h=300'
+        this.show.show_image = this.show.show_image.split('&w')[0] + '&w=1980&h=640'
+
         Tunefind.$emit('loadedShow')
       })
     },

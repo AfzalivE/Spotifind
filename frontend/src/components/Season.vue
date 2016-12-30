@@ -1,14 +1,26 @@
 <template>
-  <div class="episode-list">
-    <ul class="list-group">
-      <li v-for="episode in season.episodes" class="list-group-item click" @click="showEpisodes(episode)">
-        <div>Episode {{episode.number}}</div>
-        <div>
-          {{episode.song_count}} songs
-        </div>
-      </li>
-    </ul>
-    <router-view></router-view>
+  <div>
+    <div v-if="loading">
+      Loading...
+    </div>
+
+    <div v-if="error">
+      Error loading season
+    </div>
+
+    <div v-if="season" class="episode-list">
+      <ul class="list-group">
+        <li v-for="episode in season.episodes" class="list-group-item click" @click="showEpisodes(episode)">
+          <div>Episode {{episode.number}}</div>
+          <div>
+            {{episode.song_count}} songs
+          </div>
+        </li>
+      </ul>
+      <transition name="slide-fade">
+        <router-view></router-view>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -21,6 +33,8 @@ export default {
 
   data () {
     return {
+      error: false,
+      loading: false,
       season: {},
       seasonId: ''
     }
@@ -50,16 +64,25 @@ export default {
       }
 
       seasonId = seasonId.trim()
-      this.seasonId = seasonId
-      // console.log(showId + ' ' + seasonId)
 
       if (Object.keys(this.season).length !== 0 && seasonId === this.seasonId) {
-        console.log('not loading season again')
+        // console.log('not requesting season again')
         return // don't reload the the same season
       }
 
+      this.seasonId = seasonId
+      // console.log(showId + ' ' + seasonId)
+
+      this.loading = true
+      this.show = null
       Tunefind.season(showId, seasonId, (season) => {
         console.log(season)
+        this.loading = false
+        this.error = false
+        if (season.show_name === undefined) {
+          this.error = true
+          return
+        }
         this.season = season
         Tunefind.$emit('loadedSeason')
       })
