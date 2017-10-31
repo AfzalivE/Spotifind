@@ -2,6 +2,8 @@
 
 Find tracks for a show on Tunefind and create playlists on Spotify
 
+<span style="color:red">**DEPRECATED: Tunefind API is now paid, thus I have abandoned this project.**</span>
+
 ## Build Setup
 
 ```bash
